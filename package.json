@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "privateWebpack": "cd webpack/privateWebpack && node bundle.js",
+    "privateWebpack": "cd webpack/privateWebpack && ts-node bundle.ts",
     "webpack:devServe": "cross-env NODE_ENV=dev webpack serve --config webpack/webpack.config.dev.ts",
     "webpack:dev": "cross-env NODE_ENV=dev webpack --config webpack/webpack.config.dev.ts",
     "webpack:prod": "cross-env NODE_ENV=production webpack --config webpack/webpack.config.prod.ts",

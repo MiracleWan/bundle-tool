@@ -1,15 +1,19 @@
 const fs = require('fs')
+// @ts-ignore
 const path = require('path')
 const parser = require('@babel/parser')
 const traverse = require('@babel/traverse').default
 const {transformFromAst} = require('@babel/core')
 module.exports = class webpack {
+    private entry: any;
+    private output: any;
+    private modules: any[];
 
     /**
      * @summar 获取相关的webpack 的配置
      * @param options
      */
-    constructor(options) {
+    constructor(options: { entry: any; output: any }) {
         const {entry, output} = options
         this.entry = entry
         this.output = output
@@ -41,6 +45,7 @@ module.exports = class webpack {
         const obj = {}
 
         this.modules.forEach((item) => {
+            // @ts-ignore
             obj[item.entryFile] = {
                 dependencies: item.dependencies,
                 code: item.code
@@ -55,7 +60,7 @@ module.exports = class webpack {
      * @param entryFile
      * @return {{code, entryFile, dependencies: {}}}
      */
-    parse(entryFile) {
+    parse(entryFile: any) {
 
         const dependencies = {}
         //开始的借助fs 读取入口文件
@@ -65,8 +70,10 @@ module.exports = class webpack {
 
         // 提取语法树上的import 模块的路径组成对象关系。
         traverse(ast, {
+            // @ts-ignore
             ImportDeclaration({node}) {
                 const newPathName = './' + path.join(path.dirname(entryFile), node.source.value)
+                // @ts-ignore
                 dependencies[node.source.value] = newPathName
             }
         })
@@ -86,7 +93,7 @@ module.exports = class webpack {
      * @summary 生成启动器函数
      * @param code
      */
-    file(code) {
+    file(code: {}) {
 
         // 创建自运行函数，处理require，module，exports
         // 生成main.js => dist/main.ts
