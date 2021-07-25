@@ -94,9 +94,9 @@ export default function () {
             loader: 'babel-loader'
         },
     ]
-    var returnList = []
-    const devList = []
-    const productionList = []
+    var returnList:any = []
+    const devList:any = []
+    const productionList:any = []
     if (process.env.NODE_ENV === 'dev') returnList = commonList.concat(devList)
     if (process.env.NODE_ENV === 'production') returnList = commonList.concat(productionList)
     return returnList

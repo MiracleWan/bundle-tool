@@ -5,12 +5,15 @@ module.exports = {
             "@babel/preset-env",
             {
                 targets: {
-                    edge: "17",
-                    firefox: "60",
-                    chrome: "67",
-                    safari: "11.1",
+                    "browsers": [
+                        "> 1%",
+                        "last 2 versions",
+                        "Android >= 3.2",
+                        "Firefox >= 20",
+                        "iOS 7"
+                    ],
                 },
-                corejs: 2,
+                corejs: 3,
                 useBuiltIns: "usage",
             },
         ],
@@ -19,6 +22,15 @@ module.exports = {
     ],
     plugins: [
         "@babel/proposal-class-properties",
-        "@babel/proposal-object-rest-spread"
+        "@babel/proposal-object-rest-spread",
+        [
+            "@babel/plugin-transform-runtime",
+            {
+                "corejs": 3,
+                "helpers": true,
+                "regenerator": true,
+                "useESModules": false
+            }
+        ]
     ]
 };
